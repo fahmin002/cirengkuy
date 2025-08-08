@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CirengKuy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white flex flex-col items-center w-screen min-h-screen">
+
+  <div class="w-full max-w-screen-md mx-auto px-4">
+    <h1 class="text-orange-500 text-4xl font-extrabold text-center mt-6">CirengKuy</h1>
+
+    <section
+      class="w-full mt-6 rounded-t-3xl bg-gradient-to-b from-sky-200 to-cyan-600 p-6 shadow-inner border-t border-slate-200">
+
+      <form id="orderForm" class="flex flex-col gap-6 text-sm">
+        <!-- Input Nama -->
+        <div class="bg-white rounded-xl p-4 shadow-lg">
+          <label class="block font-medium text-gray-800 mb-1">Nama Pemesan:</label>
+          <input type="text" id="namaPemesan" placeholder="Contoh: Budi"
+            class="w-full border border-gray-300 rounded px-3 py-2" required />
+        </div>
+
+        <h2 class="text-orange-500 text-2xl font-bold text-center mb-6">Varian Hari Ini</h2>
+
+        <!-- Varian 1 -->
+        <div class="rounded-xl bg-white p-4 shadow-lg">
+          <div class="flex items-center gap-4">
+            <img src="./images/pedes.webp" alt="Ayam Pedes" class="w-24 h-24 object-cover rounded-lg" />
+            <div class="flex-1">
+              <h3 class="text-lg font-bold text-orange-500">🌶 Ayam Pedes</h3>
+              <p class="text-gray-700">Cireng isi ayam suwir pedas yang gurih dan bikin nagih!</p>
+              <label class="block mt-2">
+                Jumlah:
+                <input type="number" min="0" id="qtyPedes"
+                  class="mt-1 w-full border rounded px-2 py-1" placeholder="0" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Varian 2 -->
+        <div class="rounded-xl bg-white p-4 shadow-lg">
+          <div class="flex items-center gap-4">
+            <img src="./images/rendang.jpg" alt="Ayam Rendang" class="w-24 h-24 object-cover rounded-lg" />
+            <div class="flex-1">
+              <h3 class="text-lg font-bold text-orange-500">🍛 Ayam Rendang</h3>
+              <p class="text-gray-700">Rasa rendang Minang dalam renyahnya cireng isi!</p>
+              <label class="block mt-2">
+                Jumlah:
+                <input type="number" min="0" id="qtyRendang"
+                  class="mt-1 w-full border rounded px-2 py-1" placeholder="0" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol -->
+        <button type="submit"
+          class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full shadow-md font-bold text-lg transition mx-auto">
+          Pesan via WhatsApp
+        </button>
+      </form>
+    </section>
+
+    <footer class="text-center text-sm text-gray-500 mt-10 mb-4">
+      &copy; 2025 Prof.Cireng All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('orderForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const nama = document.getElementById('namaPemesan').value.trim();
+      const qtyPedes = parseInt(document.getElementById('qtyPedes').value) || 0;
+      const qtyRendang = parseInt(document.getElementById('qtyRendang').value) || 0;
+      const hargaPerCireng = 1250;
+      const total = qtyPedes + qtyRendang;
+      const totalHarga = total * hargaPerCireng;
+
+      if (!nama) {
+        alert("Silakan masukkan nama pemesan.");
+        return;
+      }
+
+      if (total === 0) {
+        alert("Masukkan minimal 1 varian yang ingin dipesan.");
+        return;
+      }
+
+      let pesan = `Halo! Saya *${nama}* mau pesan CirengKuy:\n`;
+      if (qtyPedes > 0) pesan += `- ${qtyPedes} Cireng Ayam Pedes 🌶\n`;
+      if (qtyRendang > 0) pesan += `- ${qtyRendang} Cireng Ayam Rendang 🍛\n`;
+      pesan += `\nTotal: ${total} cireng\n`;
+      pesan += `Harga: *Rp${totalHarga.toLocaleString("id-ID")}*\n\n`;
+      pesan += `Terima kasih! 🙌`;
+
+      const nomorWA = "62895414113707"; // Ganti sesuai nomormu
+      const url = `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`;
+      window.open(url, "_blank");
+    });
+  </script>
+
+</body>
+
+</html>
