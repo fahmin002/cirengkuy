@@ -24,6 +24,16 @@
             class="w-full border border-gray-300 rounded px-3 py-2" required />
         </div>
 
+        <!-- Pilih Kurir -->
+        <div class="bg-white rounded-xl p-4 shadow-lg">
+          <label class="block font-medium text-gray-800 mb-1">Pilih Agen:</label>
+          <select id="kurir" class="w-full border border-gray-300 rounded px-3 py-2" required>
+            <option value="" disabled selected>-- Pilih Agen --</option>
+            <option value="Tata">Tata</option>
+            <option value="Ranung">Ranung</option>
+          </select>
+        </div>
+
         <h2 class="text-orange-500 text-2xl font-bold text-center mb-6">Varian Hari Ini</h2>
 
         <!-- Varian 1 -->
@@ -76,6 +86,7 @@
       e.preventDefault();
 
       const nama = document.getElementById('namaPemesan').value.trim();
+      const kurir = document.getElementById('kurir').value;
       const qtyPedes = parseInt(document.getElementById('qtyPedes').value) || 0;
       const qtyRendang = parseInt(document.getElementById('qtyRendang').value) || 0;
       const hargaPerCireng = 1250;
@@ -84,6 +95,11 @@
 
       if (!nama) {
         alert("Silakan masukkan nama pemesan.");
+        return;
+      }
+
+      if (!kurir) {
+        alert("Silakan pilih kurir.");
         return;
       }
 
@@ -96,7 +112,8 @@
       if (qtyPedes > 0) pesan += `- ${qtyPedes} Cireng Ayam Pedes 🌶\n`;
       if (qtyRendang > 0) pesan += `- ${qtyRendang} Cireng Ayam Rendang 🍛\n`;
       pesan += `\nTotal: ${total} cireng\n`;
-      pesan += `Harga: *Rp${totalHarga.toLocaleString("id-ID")}*\n\n`;
+      pesan += `Harga: *Rp${totalHarga.toLocaleString("id-ID")}*\n`;
+      pesan += `Agen: *${kurir}*\n\n`;
       pesan += `Terima kasih! 🙌`;
 
       const nomorWA = "62895414113707"; // Ganti sesuai nomormu
